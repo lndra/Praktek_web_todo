@@ -13,6 +13,10 @@ if(isset($_GET['page'])){
       include "pages/home.php";
       break;
 
+    case 'matakuliah':
+      include "pages/matakuliah/matakuliah_read.php";
+      break;
+
     case 'login':
       echo "<meta http-equiv='refresh' content='1; url=pages/auth/login.php'> ";
     break;
