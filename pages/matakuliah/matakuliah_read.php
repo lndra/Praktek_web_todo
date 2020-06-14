@@ -1,3 +1,45 @@
+<?php
+require_once('sql/connection/connection.php');
+
+if(isset($_POST['create'])){
+  $nama_matakuliah = $_POST['nama_matakuliah'];
+  $singkatan_matakuliah = $_POST['singkatan_matakuliah'];
+  $nama_dosen = $_POST['nama_dosen'];
+  $kontak_dosen = $_POST['kontak_dosen'];
+  $aktif = $_POST['aktif'];
+
+  $insertSql = "INSERT INTO matakuliah VALUES (NULL, $nama_matakuliah, $singkatan_matakuliah, $nama_dosen, $kontak_dosen, $aktif )";
+
+  $database = new Database();
+  $db = $database->getConnection();
+
+  $stmt = $db->prepare($insertSql);
+  if($stmt->execute()){
+    ?>
+    <div class="row">
+      <div class="col-md-12 my-3">
+        <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Tambah Data Berhasil</strong> Matakuliah  <?php echo $nama_matakuliah; ?> telah ditambahkan
+        </div>
+      </div>
+    </div>
+    <?php
+  }else{
+    ?>
+    <div class="row">
+      <div class="col-md-12 my-3">
+        <div class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Tambah Data Gagal</strong> Matakuliah  <?php echo $nama_matakuliah; ?> gagal ditambahkan
+        </div>
+      </div>
+    </div>
+    <?php
+  }
+}
+?>
+
 <div class="row">
   <div class="col-md-12 my-3">
     <h1>Read</h1>
@@ -27,7 +69,6 @@
           </thead>
           <tbody>
           <?php
-          require_once('sql/connection/connection.php');
 
           $database = new Database();
           $db = $database->getConnection();
